@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>History</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Prediction History</h1>
+
+    <div class="history-grid">
+
+        {% for item in history %}
+
+        <div class="card">
+            <h2>Digit: {{ item[0] }}</h2>
+            <p>Confidence: {{ item[1] }}%</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

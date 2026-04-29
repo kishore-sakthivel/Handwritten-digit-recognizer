@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Admin Dashboard</h1>
+
+    <div class="card">
+        <h2>Total Predictions</h2>
+        <p>{{ total_predictions }}</p>
+    </div>
+
+    <h2>Registered Users</h2>
+
+    <div class="history-grid">
+
+        {% for user in users %}
+
+        <div class="card">
+            {{ user[0] }}
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,354 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* =========================
+BODY
+========================= */
+
+html,body{
+    width:100%;
+    overflow-x:hidden;
+}
+
+body{
+    background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url("/static/images/images.jpeg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
+    font-family:Arial,sans-serif;
+    color:white;
+
+    min-height:100vh;
+}
+
+/* =========================
+TOP BAR
+========================= */
+
+.topbar{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+
+    padding:15px 30px;
+
+    background:rgba(15,31,68,0.9);
+
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+}
+
+.topbar h2{
+    font-size:22px;
+}
+
+.topbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-size:16px;
+    transition:0.3s;
+}
+
+.topbar a:hover{
+    color:#4da3ff;
+}
+
+/* =========================
+MAIN CONTAINER
+========================= */
+
+.container{
+
+    width:95%;
+    max-width:900px;
+
+    margin:30px auto;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    padding:25px;
+
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    border-radius:20px;
+
+    box-shadow:0 8px 32px rgba(0,0,0,0.3);
+
+    color:white;
+
+    text-align:center;
+}
+
+.container h1{
+    margin-bottom:25px;
+    font-size:36px;
+}
+
+/* =========================
+CANVAS
+========================= */
+
+canvas{
+    width:280px;
+    height:280px;
+
+    max-width:90vw;
+    max-height:90vw;
+
+    background:black;
+
+    border:4px solid white;
+
+    border-radius:20px;
+
+    cursor:crosshair;
+
+    box-shadow:0 0 25px rgba(255,255,255,0.15);
+}
+
+/* =========================
+BUTTONS
+========================= */
+
+button{
+
+    background:linear-gradient(45deg,#00bcd4,#2196f3);
+
+    border:none;
+
+    padding:12px 25px;
+
+    color:white;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:0.3s;
+
+    margin-top:15px;
+}
+
+button:hover{
+    transform:scale(1.05);
+    opacity:0.9;
+}
+
+.guest-btn{
+    background:#555;
+}
+
+.guest-btn:hover{
+    background:#777;
+}
+
+/* =========================
+RESULT
+========================= */
+
+#result{
+
+    margin-top:20px;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    color:#00ffcc;
+
+    text-align:center;
+}
+
+/* =========================
+AUTH BOX
+========================= */
+
+.auth-box{
+
+    width:90%;
+    max-width:400px;
+
+    background:rgba(15,31,68,0.9);
+
+    margin:40px auto;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    box-shadow:0 0 25px rgba(0,0,0,0.4);
+}
+
+.auth-box h1{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.auth-box input{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-top:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    outline:none;
+
+    font-size:15px;
+}
+
+.auth-box button{
+    width:100%;
+}
+
+.auth-box a{
+
+    display:block;
+
+    text-align:center;
+
+    margin-top:20px;
+
+    color:#4da3ff;
+
+    text-decoration:none;
+}
+
+/* =========================
+CARDS
+========================= */
+
+.history-grid{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    margin-top:30px;
+
+    gap:20px;
+}
+
+.card{
+
+    width:300px;
+
+    background:rgba(15,31,68,0.9);
+
+    padding:20px;
+
+    border-radius:15px;
+
+    box-shadow:0 0 15px rgba(0,0,0,0.25);
+
+    font-size:18px;
+}
+
+/* =========================
+SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#081229;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#3a7bfd;
+    border-radius:10px;
+}
+
+/* =========================
+LIGHT MODE
+========================= */
+
+body.light{
+    background:white;
+    color:black;
+}
+
+body.light .topbar{
+    background:#f2f2f2;
+}
+
+body.light .auth-box,
+body.light .card,
+body.light .container{
+    background:white;
+    color:black;
+}
+
+body.light canvas{
+    border:4px solid black;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .topbar{
+        flex-direction:column;
+        gap:10px;
+        text-align:center;
+    }
+
+    .topbar h2{
+        font-size:18px;
+    }
+
+    .container{
+        width:95%;
+        padding:15px;
+    }
+
+    .container h1{
+        font-size:28px;
+    }
+
+    canvas{
+        width:250px;
+        height:250px;
+    }
+
+    button{
+        width:100%;
+    }
+
+    .auth-box{
+        width:95%;
+    }
+
+    .card{
+        width:95%;
+    }
+}

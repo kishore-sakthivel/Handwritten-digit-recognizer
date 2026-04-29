@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Digit Recognizer</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='STYLE.CSS') }}">
+
+</head>
+<body>
+
+<div class="topbar">
+
+    <h2>Welcome {{ user }}</h2>
+
+    <div>
+        <a href="/history">History</a>
+        <a href="/admin">Admin</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <h1>Handwritten Digit Recognizer</h1>
+
+    <canvas id="canvas" width="280" height="280"></canvas>
+
+    <div class="buttons">
+
+        <button id="predict">Predict</button>
+
+        <button id="clear">Clear</button>
+
+        <button id="save">Save</button>
+
+    </div>
+
+    <h2 id="result">-</h2>
+
+</div>
+
+<script src="{{ url_for('static', filename='SCRIPT.JS') }}"></script>
+
+</body>
+</html>
