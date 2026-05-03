@@ -2,28 +2,75 @@
 <html>
 <head>
     <title>History</title>
-    <link rel="stylesheet" href="/static/style.css">
+
+    <style>
+
+        body{
+            background:#081b44;
+            color:white;
+            font-family:Arial;
+            padding:30px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+            color:black;
+        }
+
+        th,td{
+            border:1px solid #ccc;
+            padding:12px;
+            text-align:center;
+        }
+
+        th{
+            background:#00bfff;
+            color:white;
+        }
+
+        img{
+            width:80px;
+            height:80px;
+            background:black;
+            border-radius:10px;
+        }
+
+    </style>
 </head>
 <body>
 
-<div class="container">
-
     <h1>Prediction History</h1>
 
-    <div class="history-grid">
+    <table>
+
+        <tr>
+            <th>Image</th>
+            <th>Prediction</th>
+            <th>Confidence</th>
+            <th>Timestamp</th>
+        </tr>
 
         {% for item in history %}
 
-        <div class="card">
-            <h2>Digit: {{ item[0] }}</h2>
-            <p>Confidence: {{ item[1] }}%</p>
-        </div>
+        <tr>
+
+            <td>
+                <img src="{{ item[0] }}">
+            </td>
+
+            <td>{{ item[1] }}</td>
+
+            <td>{{ item[2] }}%</td>
+
+            <td>{{ item[3] }}</td>
+
+        </tr>
 
         {% endfor %}
 
-    </div>
-
-</div>
+    </table>
 
 </body>
 </html>

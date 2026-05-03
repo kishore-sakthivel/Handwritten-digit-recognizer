@@ -1,3 +1,5 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 from flask import Flask, render_template, request, jsonify, redirect, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
@@ -27,7 +29,7 @@ def login_required(f):
 # =========================
 # LOAD MODEL
 # =========================
-model = tf.keras.models.load_model("mnist_cnn_model.h5")
+model = tf.keras.models.load_model("mnist_cnn_model.h5") #Loads trained CNN model.
 
 # =========================
 # DATABASE
@@ -36,6 +38,17 @@ os.makedirs("database", exist_ok=True)
 
 conn = sqlite3.connect("database/db.sqlite3", check_same_thread=False)
 cursor = conn.cursor()
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS history (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT,
+    image TEXT,
+    prediction TEXT,
+    confidence REAL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+''')
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
@@ -139,40 +152,52 @@ def logout():
 # PREDICT
 # =========================
 @app.route("/predict", methods=["POST"])
-@login_required
 def predict():
 
-    data = request.json["image"]
+    data = request.json["image"] #fetch api
 
     image_data = base64.b64decode(data.split(",")[1])
-    image = Image.open(io.BytesIO(image_data)).convert("L")
+
+    image = Image.open(io.BytesIO(image_data)).convert("L") #into grayscale
 
     img = np.array(image)
 
     img = 255 - img
+
     img = cv2.resize(img, (28, 28))
+
     img = cv2.GaussianBlur(img, (3,3), 0)
+
     img = img.astype("float32") / 255.0
+
     img = img.reshape(1, 28, 28, 1)
 
-    prediction = model.predict(img)
+    prediction = model.predict(img)[0]
 
     digit = int(np.argmax(prediction))
+
     confidence = float(np.max(prediction) * 100)
 
-    # save history
+    probabilities = [float(p * 100) for p in prediction] #Used for bar chart
+
+    # SAVE HISTORY
     cursor.execute("""
-        INSERT INTO history(username, prediction, confidence)
-        VALUES (?, ?, ?)
-    """, (session["user"], str(digit), round(confidence, 2)))
+        INSERT INTO history(username, image, prediction, confidence)
+        VALUES (?, ?, ?, ?)
+    """, (
+        session["user"],
+        data,
+        str(digit),
+        round(confidence, 2)
+    ))
 
     conn.commit()
 
     return jsonify({
         "digit": digit,
-        "confidence": round(confidence, 2)
+        "confidence": round(confidence, 2),         #sending response to the frontend
+        "probabilities": probabilities
     })
-
 # =========================
 # SAVE DATASET
 # =========================
@@ -203,7 +228,7 @@ def save_dataset():
 def history():
 
     cursor.execute("""
-        SELECT prediction, confidence
+        SELECT image, prediction, confidence, created_at
         FROM history
         WHERE username=?
         ORDER BY id DESC
@@ -237,4 +262,4 @@ def admin():
 # RUN
 # =========================
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)       

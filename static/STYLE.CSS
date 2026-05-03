@@ -351,4 +351,23 @@ RESPONSIVE
     .card{
         width:95%;
     }
+    .big-digit{
+    font-size:90px;
+    font-weight:bold;
+    color:#00ffcc;
+    text-align:center;
+}
+
+.confidence{
+    font-size:24px;
+    margin-top:10px;
+    text-align:center;
+}
+
+#probChart{
+    margin-top:30px;
+    background:white;
+    border-radius:15px;
+    padding:10px;
+}
 }
