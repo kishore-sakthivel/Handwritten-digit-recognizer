@@ -58,14 +58,6 @@ CREATE TABLE IF NOT EXISTS users (
 )
 """)
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS history (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    prediction TEXT,
-    confidence REAL
-)
-""")
 
 conn.commit()
 
@@ -172,7 +164,7 @@ def predict():
 
     img = img.reshape(1, 28, 28, 1)
 
-    prediction = model.predict(img)[0]
+    prediction = model.predict(img, verbose=0)[0]
 
     digit = int(np.argmax(prediction))
 
