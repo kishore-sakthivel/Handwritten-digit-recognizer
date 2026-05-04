@@ -87,7 +87,7 @@ model = models.Sequential([
 
     layers.Input(shape=(28,28,1)),
 
-    layers.Conv2D(32, (3,3), activation='relu'),
+    layers.Conv2D(32, (3,3), activation='relu'),    #detects pattern (edges,shapes)
     layers.BatchNormalization(),
     layers.Conv2D(32, (3,3), activation='relu'),
     layers.MaxPooling2D(2,2),
@@ -95,7 +95,7 @@ model = models.Sequential([
     layers.Conv2D(64, (3,3), activation='relu'),
     layers.BatchNormalization(),
     layers.Conv2D(64, (3,3), activation='relu'),
-    layers.MaxPooling2D(2,2),
+    layers.MaxPooling2D(2,2),   #reduces sizes
 
     layers.Flatten(),
 
@@ -103,7 +103,7 @@ model = models.Sequential([
 
     layers.Dropout(0.4),
 
-    layers.Dense(10, activation='softmax')
+    layers.Dense(10, activation='softmax')  #op prob(0-9)
 ])
 
 # =========================
@@ -129,4 +129,4 @@ model.fit(
 # =========================
 model.save("mnist_cnn_model.h5")
 
-print("✅ PERFECT MODEL READY")
+print("PERFECT MODEL READY")
